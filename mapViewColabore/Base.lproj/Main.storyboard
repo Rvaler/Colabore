@@ -908,7 +908,7 @@
         <image name="logo-red" width="138" height="178"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NtJ-5f-6sz"/>
+        <segue reference="reu-2e-SdR"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.85490196080000003" green="0.1647058824" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
 </document>

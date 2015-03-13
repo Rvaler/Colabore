@@ -10,14 +10,14 @@
 	<string>mapViewColabore</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2FE46ACBF8FA635BFA90969F87297D8E50771641</key>
+		<key>17801EB8358E6DF5E4C3E755782B1FB59440C10E</key>
 		<string>https://github.com/omatheusr/Colabore.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>mapViewColabore.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2FE46ACBF8FA635BFA90969F87297D8E50771641</key>
+		<key>17801EB8358E6DF5E4C3E755782B1FB59440C10E</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2FE46ACBF8FA635BFA90969F87297D8E50771641</string>
+	<string>17801EB8358E6DF5E4C3E755782B1FB59440C10E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2FE46ACBF8FA635BFA90969F87297D8E50771641</string>
+			<string>17801EB8358E6DF5E4C3E755782B1FB59440C10E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Colabore</string>
 		</dict>
