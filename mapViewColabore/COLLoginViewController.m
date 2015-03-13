@@ -112,13 +112,22 @@ static CGFloat keyboardHeightOffset = 5.0f;
 - (IBAction)showRegister:(UIButton *)sender {
     [self performSegueWithIdentifier:@"segueLoginToRegister" sender:sender];
 }
-- (IBAction)showMap:(UIButton *)sender {
-    if([[_userTextField text] isEqualToString:@""] || [[_passwordTextField text] isEqualToString:@""])
-    {
-        return;
-    }
-    [self performSegueWithIdentifier:@"segueLoginToMap" sender:sender];
+- (IBAction)loginButtonClicked:(UIButton *)sender {
+    [PFUser logInWithUsernameInBackground:_userTextField.text
+                                 password:_passwordTextField.text
+                                    block:^(PFUser *user, NSError *error){
+                                        if(user){
+                                            COLUser *loggedUser;
+                                            loggedUser = [[COLUser alloc] initWithCompleteName:user[@"completeName"] email:user.email username:user.username objectID:user.objectId];
+                                            
+                                            [[COLManager manager] setUser:loggedUser];
+                                            [self performSegueWithIdentifier:@"segueLoginToMap" sender:sender];
+                                        }else{
+                                            NSLog(@"nao logou");
+                                        }
+                                    }];
 }
+
 
 -(IBAction)backFromRegisterToLogin:(UIStoryboardSegue *)segue
 {

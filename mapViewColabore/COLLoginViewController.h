@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "QuartzCore/QuartzCore.h"
+#import <Parse/Parse.h>
+#import "COLManager.h"
 
 @interface COLLoginViewController : UIViewController <UITextFieldDelegate>
 

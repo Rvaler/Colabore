@@ -18,10 +18,10 @@
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
-@property (nonatomic) BOOL localizando;
-@property COLPopUpViewController *popup;
-@property COLUser* user;
-- (IBAction)locationUser:(id)sender;
+@property (nonatomic) COLPopUpViewController *popup;
+@property (nonatomic) BOOL isLocating;
 
+
+- (IBAction)locationUser:(id)sender;
 @end
 
