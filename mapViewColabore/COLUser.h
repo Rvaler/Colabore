@@ -17,6 +17,6 @@
 @property (nonatomic) NSString *objectID;
 
 - (id)initWithCompleteName:(NSString*)inCompleteName email:(NSString*)inEmail username:(NSString*)inUsername objectID:(NSString*)inObjectID;
-- (BOOL)createUserDataBase: (NSString*)inCompleteName email:(NSString*)inEmail username:(NSString*)inUsername password:(NSString*)inPassword;
+
 
 @end
