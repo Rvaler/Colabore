@@ -158,21 +158,7 @@ static CGFloat keyboardHeightOffset = 15.0f;
 
 
  
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"segueRegisterToMap"]){
-        _user = [[COLUser alloc] init];
-        [_user setUsername: _usuarioTextField.text];
-        [_user setName: _nomeCompletoTextField.text];
-        [_user setEmail: _emailTextField.text];
-        [_user setPassword: _senhaTextField.text];
-        
-       
-        UINavigationController *navController = segue.destinationViewController;
-        COLMapViewController *mapVc = (COLMapViewController*)[navController topViewController];
 
-        [mapVc setUser: _user];
-    }
-}
 
 /*
 #pragma mark - Navigation
