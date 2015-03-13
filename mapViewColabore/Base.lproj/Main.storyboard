@@ -133,7 +133,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showMap:" destination="gxT-cl-uYb" eventType="touchUpInside" id="CwU-ec-mHe"/>
+                                    <action selector="loginButtonClicked:" destination="gxT-cl-uYb" eventType="touchUpInside" id="0LY-Oa-FnM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2V2-l6-vZG">
@@ -337,7 +337,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showMap:" destination="XTA-VK-NRf" eventType="touchUpInside" id="mvN-cj-pfx"/>
+                                    <action selector="signUpButtonClicked:" destination="XTA-VK-NRf" eventType="touchUpInside" id="bHQ-jm-c6Z"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirmar senha" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Mj-jR-6rI">
@@ -908,7 +908,7 @@
         <image name="logo-red" width="138" height="178"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NtJ-5f-6sz"/>
+        <segue reference="reu-2e-SdR"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.85490196080000003" green="0.1647058824" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
 </document>
