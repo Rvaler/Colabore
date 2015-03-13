@@ -36,10 +36,12 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.locationManager = [[CLLocationManager alloc] init];
-    [self.locationManager setDelegate:self];
+    
+    [self setLocationManager:[[CLLocationManager alloc] init]];
+    [[self locationManager] setDelegate:self];
+    [[self mapView] setDelegate:self];
+    
     [self alertRequisicao];
-    self.mapView.delegate = self;
     
     NSLog(@"%@", [[[COLManager manager] user] username]);
 }
@@ -51,13 +53,21 @@
     }
     else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
              [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Request" message:@"To use this feature you need to turn on Location Service." delegate:self cancelButtonTitle:@"Nope" otherButtonTitles:@"Go to Settings", nil];
-        [alert show];
+        
+        UIAlertController *alertLocationSettings = [UIAlertController alertControllerWithTitle:@"Autorizações" message:@"Autorize o Colaborê a utilizar sua localização para mostrar sua região no mapa." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *settings = [UIAlertAction actionWithTitle:@"Configurar" style:UIAlertActionStyleDefault handler:^(UIAlertAction *controller){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+        [alertLocationSettings addAction:cancel];
+        [alertLocationSettings addAction:settings];
+        
+        [self presentViewController:alertLocationSettings animated:YES completion:nil];
     }
     else {
         [self.locationManager startUpdatingLocation];
-        _localizando = YES;
-        
+        _isLocating = YES;
     }
 }
 
@@ -189,24 +199,18 @@
 }
 
 -(void)stopLocationManager{
-    if (_localizando) {
+    if (_isLocating) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didTimeOut:) object:nil];
         [self.locationManager stopUpdatingLocation];
         _locationManager.delegate = nil;
-        _localizando = NO;
+        _isLocating = NO;
     }
 }
 
 -(void)didTimeOut:(id)obj{
-    // Temos aqui se temos obtido um local ou não. Se não há
-    // Localização foi obtido por esta altura, então paramos o gerente de locação
-    // De nos dar atualizações e vamos mostrar uma mensagem de erro para o usuário.
     if(_loc == nil){
         [self stopLocationManager];
-        
-        // Criar um objeto NSError para que a interface do usuário mostra uma mensagem de erro.
         _lastLocationError = [NSError errorWithDomain:@"MyLocationErrorDomain" code:1 userInfo:nil];
-        
     }
 }
 - (IBAction)locationUser:(id)sender {
@@ -228,16 +232,6 @@
     [self performSegueWithIdentifier:@"segueMapToMenu" sender:sender];
     
 }
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([[segue identifier] isEqualToString:@"segueMapToMenu"])
-    {
-        COLTabBarViewController *tabMenu = segue.destinationViewController;
-        [tabMenu setUser:_user];
-    }
-}
-
 # pragma mark - UIAlertViewDelegate
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -251,7 +245,6 @@
 {
     
 }
-
 
 
 @end
