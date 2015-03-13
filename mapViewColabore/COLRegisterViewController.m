@@ -120,7 +120,7 @@ static CGFloat keyboardHeightOffset = 15.0f;
 }
 
 // when press cadastrar button, creates an user in database and go to Map View
-- (IBAction)showMap:(UIButton *)sender {
+- (IBAction)signUpButtonClicked:(UIButton *)sender {
     if ([_senhaTextField.text isEqual:_confirmarSenhaTextField.text]) {
         __block COLUser *loggedUser = nil;
         PFUser *PFUnewUser = [PFUser user];
@@ -132,7 +132,7 @@ static CGFloat keyboardHeightOffset = 15.0f;
         [PFUnewUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 
-                NSLog(@"login efetuado com sucesso");
+                NSLog(@"registro efetuado com sucesso");
                 
                 loggedUser = [[COLUser alloc] initWithCompleteName:_nomeCompletoTextField.text email:_emailTextField.text username:_usuarioTextField.text objectID:PFUnewUser.objectId];
                 [[COLManager manager] setUser:loggedUser];
@@ -140,7 +140,7 @@ static CGFloat keyboardHeightOffset = 15.0f;
                 [self performSegueWithIdentifier:@"segueRegisterToMap" sender:sender];
             }else{
                
-                NSLog(@"erro no login");
+                NSLog(@"erro no registro");
             }
         }];
     }
