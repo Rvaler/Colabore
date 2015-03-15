@@ -39,6 +39,11 @@
     
     [self setLocationManager:[[CLLocationManager alloc] init]];
     [[self locationManager] setDelegate:self];
+    [[self locationManager] setDistanceFilter:kCLDistanceFilterNone];
+    [[self locationManager] setDesiredAccuracy:kCLLocationAccuracyBest];
+    
+    
+    [[self mapView] setShowsUserLocation:YES];
     [[self mapView] setDelegate:self];
     
     [self requireLocateAutorization];
@@ -80,7 +85,14 @@
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     [[self mapView] setRegion:[self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 100, 100)] animated:YES];
 }
-
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    MKAnnotationView *annot = [views objectAtIndex:0];
+    id<MKAnnotation> mp = [annot annotation];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate], 150, 150);
+    
+    [mapView setRegion:region animated:YES];
+}
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
     static NSString* AnnotationIdentifier = @"Annotation";
@@ -90,10 +102,11 @@
         
         MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
         if (annotation == mapView.userLocation){
-            customPinView.image = [UIImage imageNamed:@"pin-stickman"];
+            customPinView.image = [UIImage imageNamed:@"pin-stickman"];    
         }
         customPinView.animatesDrop = NO;
         customPinView.canShowCallout = YES;
+        
         return customPinView;
         
     } else {
@@ -108,7 +121,7 @@
 
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocation *lastUserLocation = [[[self manager] user] userlocation];
+    /*CLLocation *lastUserLocation = [[[self manager] user] userlocation];
     CLLocation *newLocation = [locations lastObject];
     
     if ([newLocation.timestamp timeIntervalSinceNow] < -5.0 || newLocation.horizontalAccuracy < 0)
@@ -169,33 +182,33 @@
     
     latitudeString = [NSString stringWithFormat:@"%.8f",  lastUserLocation.coordinate.latitude];
     longitudeString = [NSString stringWithFormat:@"%.8f", lastUserLocation.coordinate.longitude];
-    
+    */
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    if (error.code == kCLErrorLocationUnknown) {
+    /*if (error.code == kCLErrorLocationUnknown) {
         return;
     }
     [self stopLocationManager];
-    _lastLocationError = error;
+    _lastLocationError = error;*/
     
 }
 
 - (void)stopLocationManager{
-    if (_isLocating) {
+    /*if (_isLocating) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didTimeOut:) object:nil];
         
         [self.locationManager stopUpdatingLocation];
         _locationManager.delegate = nil;
         _isLocating = NO;
-    }
+    }*/
 }
 
 - (void)didTimeOut:(id)obj{
-    if([[[self manager] user] userlocation] == nil){
+    /*if([[[self manager] user] userlocation] == nil){
         [self stopLocationManager];
         _lastLocationError = [NSError errorWithDomain:@"MyLocationErrorDomain" code:1 userInfo:nil];
-    }
+    }*/
 }
 
 - (IBAction)buttonCenterByUserLocation:(id)sender {
