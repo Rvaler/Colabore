@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gxT-cl-uYb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gxT-cl-uYb">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -24,19 +24,6 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="GHm-YZ-oWe"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-SP-awN">
-                                <rect key="frame" x="260" y="500" width="80" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="3pt-pl-0h7"/>
-                                    <constraint firstAttribute="width" constant="80" id="h44-gk-Qe2"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="button-denuncia">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="showPopUp:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="UyD-br-p0C"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcd-Mq-eXH">
                                 <rect key="frame" x="16" y="544" width="40" height="40"/>
                                 <constraints>
@@ -47,7 +34,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="locationUser:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ySn-84-uZG"/>
+                                    <action selector="buttonCenterByUserLocation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="HZv-lm-Fqj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUE-gc-Bji">
@@ -67,6 +54,19 @@
                                 </variation>
                                 <connections>
                                     <action selector="showMenu:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="055-uR-SYn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-SP-awN">
+                                <rect key="frame" x="260" y="500" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="3pt-pl-0h7"/>
+                                    <constraint firstAttribute="width" constant="80" id="h44-gk-Qe2"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="button-denuncia">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showPopUp:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="UyD-br-p0C"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -171,7 +171,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Colaborê" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH9-Vr-PLN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Colaborê" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH9-Vr-PLN">
                                 <rect key="frame" x="187" y="186" width="228" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="250" id="1Pp-h8-1sQ"/>
@@ -908,7 +908,7 @@
         <image name="logo-red" width="138" height="178"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="reu-2e-SdR"/>
+        <segue reference="NtJ-5f-6sz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.85490196080000003" green="0.1647058824" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
 </document>

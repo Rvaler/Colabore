@@ -22,6 +22,5 @@
 @property (nonatomic) BOOL isLocating;
 
 
-- (IBAction)locationUser:(id)sender;
 @end
 

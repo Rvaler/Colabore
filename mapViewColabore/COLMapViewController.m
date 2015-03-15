@@ -11,45 +11,48 @@
 @interface COLMapViewController ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation *loc;
+@property (nonatomic) COLManager *manager;
 
-//teste
+-(void)requireLocateAutorization;
 @end
 
 @implementation COLMapViewController{
+    BOOL _updatingLocation;
+    BOOL _performingReverseGeocoding;
     NSString *latitudeString;
     NSString *longitudeString;
     NSError *_lastLocationError;
-    BOOL _updatingLocation;
-    BOOL _performingReverseGeocoding;
     CLGeocoder *_geocoder;
     NSError *_lastGeocodingError;
     CLPlacemark *_placemark;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[self navigationController] setNavigationBarHidden:YES animated:NO];
-
 }
 
 -(void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setManager:[COLManager manager]];
+    
     [self setLocationManager:[[CLLocationManager alloc] init]];
     [[self locationManager] setDelegate:self];
     [[self mapView] setDelegate:self];
     
-    [self alertRequisicao];
-    
-    NSLog(@"%@", [[[COLManager manager] user] username]);
+    [self requireLocateAutorization];
 }
 
--(void)alertRequisicao
-{
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-        [self.locationManager requestWhenInUseAuthorization];
+-(void)requireLocateAutorization{
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse)
+    {
+        [self.locationManager startUpdatingLocation];
+        _isLocating = YES;
+    }
+    else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
+    {
+        [[self locationManager] requestWhenInUseAuthorization];
     }
     else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
              [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
@@ -65,10 +68,6 @@
         
         [self presentViewController:alertLocationSettings animated:YES completion:nil];
     }
-    else {
-        [self.locationManager startUpdatingLocation];
-        _isLocating = YES;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,14 +77,11 @@
 
 #pragma mark - MapKit
 
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    [[self mapView] setRegion:[self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 100, 100)] animated:YES];
 }
 
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
     static NSString* AnnotationIdentifier = @"Annotation";
     MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
@@ -94,14 +90,13 @@
         
         MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
         if (annotation == mapView.userLocation){
-            customPinView.image = [UIImage imageNamed:@"Logo-Red + StickMan.png"];
+            customPinView.image = [UIImage imageNamed:@"pin-stickman"];
         }
         customPinView.animatesDrop = NO;
         customPinView.canShowCallout = YES;
         return customPinView;
         
     } else {
-        
         pinView.annotation = annotation;
     }
     
@@ -112,42 +107,31 @@
 # pragma mark - CLLocationManagerDelegate Methods
 
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    CLLocation *lastUserLocation = [[[self manager] user] userlocation];
     CLLocation *newLocation = [locations lastObject];
     
-    // Se o momento em que o novo objecto foi determinada localização é muito longo
-    // Atrás (5 segundos no presente caso), então este é um resultado em cache. Vamos ignorar
-    // Esses locais em cache, pois eles podem estar desatualizados.
-    
-    if ([newLocation.timestamp timeIntervalSinceNow] < -5.0)
+    if ([newLocation.timestamp timeIntervalSinceNow] < -5.0 || newLocation.horizontalAccuracy < 0)
     {
         return;
     }
-    // Ignorar medições inválidos.
-    if (newLocation.horizontalAccuracy < 0) {
-        return;
-    }
-    // Calcule a distância entre a nova leitura e do antigo. Se esta
-    // É a primeira leitura, então não há local anterior para comparar
-    // E vamos definir o raio de um número muito grande (MAXFLOAT).
-    CLLocationDistance distance = MAXFLOAT;
-    if (_loc != nil) {
-        distance = [newLocation distanceFromLocation:_loc];
+    CLLocationDistance distanceFromLastUserLocation = MAXFLOAT;
+    if (lastUserLocation != nil) {
+        distanceFromLastUserLocation = [newLocation distanceFromLocation:lastUserLocation];
     }
     // Executar o código a seguir somente se a nova localização oferece uma forma mais
     // Leitura precisa do que a anterior, ou se é a primeira.
-    if (_loc == nil || _loc.horizontalAccuracy > newLocation.horizontalAccuracy) {
-        // Coloque as novas coordenadas na tela.
+    if (lastUserLocation == nil || lastUserLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+        
         _lastLocationError = nil;
-        _loc = newLocation;
-        // Terminamos se a nova localização é precisa o suficiente.
+        [[[self manager] user] setUserlocation:newLocation];
+        
         if (newLocation.horizontalAccuracy <= _locationManager.desiredAccuracy) {
             
             [self stopLocationManager];
             // Vamos forçar uma geocodificação reversa para esse resultado final se
             // Não tiver feito este local.
-            if (distance > 0) {
+            if (distanceFromLastUserLocation > 0) {
                 _performingReverseGeocoding = NO;
             }
         }
@@ -159,7 +143,7 @@
             // Com os resultados (um novo marcador ou mensagem de erro).
             _performingReverseGeocoding = YES;
             
-            [_geocoder reverseGeocodeLocation:_loc completionHandler:^(NSArray *placemarks, NSError *error){
+            [_geocoder reverseGeocodeLocation:lastUserLocation completionHandler:^(NSArray *placemarks, NSError *error){
                 
                 _lastGeocodingError = error;
                 if (error == nil && [placemarks count] > 0) {
@@ -173,23 +157,22 @@
         // Se a distância não se alterou significativamente desde a última vez e tem
         // Sido um tempo desde que recebemos a leitura anterior (10 segundos), em seguida,
         // Assumir este é o melhor que vai ser e parar de buscar a localização.
-        latitudeString = [NSString stringWithFormat:@"%.8f",  _loc.coordinate.latitude];
-        longitudeString = [NSString stringWithFormat:@"%.8f", _loc.coordinate.longitude];
+        latitudeString = [NSString stringWithFormat:@"%.8f",  lastUserLocation.coordinate.latitude];
+        longitudeString = [NSString stringWithFormat:@"%.8f", lastUserLocation.coordinate.longitude];
         
-    }else if (distance < 10.0){
-        NSTimeInterval timeInterval = [newLocation.timestamp timeIntervalSinceDate:_loc.timestamp];
+    }else if (distanceFromLastUserLocation < 10.0){
+        NSTimeInterval timeInterval = [newLocation.timestamp timeIntervalSinceDate:lastUserLocation.timestamp];
         if (timeInterval > 10) {
             [self stopLocationManager];
         }
     }
     
-    latitudeString = [NSString stringWithFormat:@"%.8f",  _loc.coordinate.latitude];
-    longitudeString = [NSString stringWithFormat:@"%.8f", _loc.coordinate.longitude];
+    latitudeString = [NSString stringWithFormat:@"%.8f",  lastUserLocation.coordinate.latitude];
+    longitudeString = [NSString stringWithFormat:@"%.8f", lastUserLocation.coordinate.longitude];
     
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     if (error.code == kCLErrorLocationUnknown) {
         return;
     }
@@ -198,47 +181,34 @@
     
 }
 
--(void)stopLocationManager{
+- (void)stopLocationManager{
     if (_isLocating) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didTimeOut:) object:nil];
+        
         [self.locationManager stopUpdatingLocation];
         _locationManager.delegate = nil;
         _isLocating = NO;
     }
 }
 
--(void)didTimeOut:(id)obj{
-    if(_loc == nil){
+- (void)didTimeOut:(id)obj{
+    if([[[self manager] user] userlocation] == nil){
         [self stopLocationManager];
         _lastLocationError = [NSError errorWithDomain:@"MyLocationErrorDomain" code:1 userInfo:nil];
     }
 }
-- (IBAction)locationUser:(id)sender {
-    MKCoordinateRegion viewRegionLocation = MKCoordinateRegionMakeWithDistance([self.locationManager location].coordinate, 100, 100);
-    [self.mapView setRegion:viewRegionLocation animated:YES];
+
+- (IBAction)buttonCenterByUserLocation:(id)sender {
+    [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance([[[self locationManager] location] coordinate], 100, 100) animated:YES];
 }
 
-
-
 - (IBAction)showPopUp:(UIButton *)sender {
-
     _popup = [[COLPopUpViewController alloc] init];
     [_popup showPopUpOnView:self.view animated:YES];
-    
 }
 
 - (IBAction)showMenu:(UIButton *)sender {
-    
     [self performSegueWithIdentifier:@"segueMapToMenu" sender:sender];
-    
-}
-# pragma mark - UIAlertViewDelegate
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-    }
 }
 
 -(IBAction)backFromMenuToMap:(UIStoryboardSegue*)segue
