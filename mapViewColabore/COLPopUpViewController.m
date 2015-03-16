@@ -266,7 +266,7 @@
                                                       
                                                       // realiza a denuncia no BD
                                                       PFObject *newDenuncia = [PFObject objectWithClassName:@"Denuncia"];
-                                                      newDenuncia[@"photo"] = 
+                                                      //newDenuncia[@"photo"] =
                                                       
                                                       
                                                       //
