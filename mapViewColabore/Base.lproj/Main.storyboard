@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gxT-cl-uYb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gxT-cl-uYb">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="width" constant="40" id="Tzj-4E-Z0G"/>
                                     <constraint firstAttribute="height" constant="40" id="f6g-AI-irZ"/>
                                 </constraints>
-                                <state key="normal" image="Localization.png">
+                                <state key="normal" image="icon-center">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -171,7 +171,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Colaborê" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH9-Vr-PLN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Colaborê" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH9-Vr-PLN">
                                 <rect key="frame" x="187" y="186" width="228" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="250" id="1Pp-h8-1sQ"/>
@@ -898,10 +898,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Localization.png" width="52" height="52"/>
         <image name="MenuButton" width="62" height="49"/>
         <image name="background2" width="540" height="960"/>
         <image name="button-denuncia" width="116" height="116"/>
+        <image name="icon-center" width="52" height="52"/>
         <image name="icon-config" width="24" height="24"/>
         <image name="icon-facebook" width="24" height="24"/>
         <image name="icon-megafone" width="37" height="21"/>

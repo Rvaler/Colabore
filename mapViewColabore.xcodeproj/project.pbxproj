@@ -75,6 +75,7 @@
 		C3396B4E1AADC8C2000EDF72 /* COLConfigTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3396B471AADC8C2000EDF72 /* COLConfigTableViewController.m */; };
 		C3396B4F1AADC8C2000EDF72 /* COLProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3396B491AADC8C2000EDF72 /* COLProfileTableViewController.m */; };
 		C3396B501AADC8C2000EDF72 /* COLChangePasswordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3396B4B1AADC8C2000EDF72 /* COLChangePasswordTableViewController.m */; };
+		C398AAB51AB6EDCC0097232E /* COLPinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C398AAB41AB6EDCC0097232E /* COLPinAnnotation.m */; };
 		C3DE89091AADEB0F00DDE6C8 /* COLCategViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE89071AADEB0F00DDE6C8 /* COLCategViewController.m */; };
 		C3DE890A1AADEB0F00DDE6C8 /* COLCategViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3DE89081AADEB0F00DDE6C8 /* COLCategViewController.xib */; };
 		EE2DA97F1AAF168600E9F1DC /* Localization.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2DA97C1AAF168600E9F1DC /* Localization.png */; };
@@ -180,6 +181,8 @@
 		C3396B491AADC8C2000EDF72 /* COLProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COLProfileTableViewController.m; sourceTree = "<group>"; };
 		C3396B4A1AADC8C2000EDF72 /* COLChangePasswordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COLChangePasswordTableViewController.h; sourceTree = "<group>"; };
 		C3396B4B1AADC8C2000EDF72 /* COLChangePasswordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COLChangePasswordTableViewController.m; sourceTree = "<group>"; };
+		C398AAB31AB6EDCC0097232E /* COLPinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COLPinAnnotation.h; sourceTree = "<group>"; };
+		C398AAB41AB6EDCC0097232E /* COLPinAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COLPinAnnotation.m; sourceTree = "<group>"; };
 		C3DE89061AADEB0F00DDE6C8 /* COLCategViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COLCategViewController.h; sourceTree = "<group>"; };
 		C3DE89071AADEB0F00DDE6C8 /* COLCategViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COLCategViewController.m; sourceTree = "<group>"; };
 		C3DE89081AADEB0F00DDE6C8 /* COLCategViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = COLCategViewController.xib; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 				C3396B391AADC360000EDF72 /* COLUser.m */,
 				54BD4CA01AB1D72700EE5FEA /* COLManager.h */,
 				54BD4CA11AB1D72700EE5FEA /* COLManager.m */,
+				C398AAB31AB6EDCC0097232E /* COLPinAnnotation.h */,
+				C398AAB41AB6EDCC0097232E /* COLPinAnnotation.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -471,11 +476,11 @@
 				TargetAttributes = {
 					5801484C1AAA729300588299 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = YR3S2CY7HM;
+						DevelopmentTeam = 67BQ8QZEWD;
 					};
 					580148651AAA729300588299 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = YR3S2CY7HM;
+						DevelopmentTeam = 67BQ8QZEWD;
 						TestTargetID = 5801484C1AAA729300588299;
 					};
 				};
@@ -579,6 +584,7 @@
 				C3396B4C1AADC8C2000EDF72 /* COLTabBarViewController.m in Sources */,
 				C3396B401AADC5BC000EDF72 /* COLPopUpViewController.m in Sources */,
 				C3396B3A1AADC360000EDF72 /* COLUser.m in Sources */,
+				C398AAB51AB6EDCC0097232E /* COLPinAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

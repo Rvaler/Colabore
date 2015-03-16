@@ -7,12 +7,17 @@
 //
 
 #import "COLMapViewController.h"
+#import "COLPinAnnotation.h"
 
 @interface COLMapViewController ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) COLManager *manager;
 
+@property (nonatomic) NSMutableArray *loadedPins;
+
+-(void)loadPinsArround;
+-(void)addAnnotationToMapView:(COLPinAnnotation *)annotation;
 -(void)requireLocateAutorization;
 @end
 
@@ -36,6 +41,7 @@
     [super viewDidLoad];
     
     [self setManager:[COLManager manager]];
+    [self setLoadedPins:[[NSMutableArray alloc] init]];
     
     [self setLocationManager:[[CLLocationManager alloc] init]];
     [[self locationManager] setDelegate:self];
@@ -84,9 +90,11 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     [[self mapView] setRegion:[self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 100, 100)] animated:YES];
+    
+    [[[self manager] user] setUserlocation:userLocation.location];
+    [self loadPinsArround];
 }
--(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
     MKAnnotationView *annot = [views objectAtIndex:0];
     id<MKAnnotation> mp = [annot annotation];
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate], 150, 150);
@@ -95,7 +103,10 @@
 }
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
-    static NSString* AnnotationIdentifier = @"Annotation";
+    static NSString* AnnotationIdentifier = @"Annotation1";
+    if (annotation == mapView.userLocation){
+        AnnotationIdentifier = @"Annotation2";
+    }
     MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
     
     if (!pinView) {
@@ -103,6 +114,10 @@
         MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
         if (annotation == mapView.userLocation){
             customPinView.image = [UIImage imageNamed:@"pin-stickman"];    
+        }
+        else if([[self loadedPins] containsObject:annotation])
+        {
+            customPinView.image = [UIImage imageNamed:@"icon-center"];
         }
         customPinView.animatesDrop = NO;
         customPinView.canShowCallout = YES;
@@ -209,6 +224,23 @@
         [self stopLocationManager];
         _lastLocationError = [NSError errorWithDomain:@"MyLocationErrorDomain" code:1 userInfo:nil];
     }*/
+}
+
+-(void)loadPinsArround{
+    
+    CLLocation *loct = [[_manager user] userlocation];
+    if(!loct)
+        return;
+    COLPinAnnotation *pin = [[COLPinAnnotation alloc] initWithCoordinate:CLLocationCoordinate2DMake(loct.coordinate.latitude, loct.coordinate.longitude) title:@"Teste" subtitle:@"Teste"];
+    [self addAnnotationToMapView:pin];
+    
+}
+-(void)addAnnotationToMapView:(COLPinAnnotation *)annotation{
+    if(![[self loadedPins] containsObject:annotation])
+    {
+        [[self loadedPins] addObject:annotation];
+        [[self mapView] addAnnotation:annotation];
+    }
 }
 
 - (IBAction)buttonCenterByUserLocation:(id)sender {

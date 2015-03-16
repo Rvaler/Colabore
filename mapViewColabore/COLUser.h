@@ -17,7 +17,7 @@
 @property (nonatomic) NSString *password;
 @property (nonatomic) NSString *objectID;
 
-@property (strong, nonatomic) CLLocation *userlocation;
+@property (nonatomic) CLLocation *userlocation;
 
 - (id)initWithCompleteName:(NSString*)inCompleteName email:(NSString*)inEmail username:(NSString*)inUsername objectID:(NSString*)inObjectID;
 
