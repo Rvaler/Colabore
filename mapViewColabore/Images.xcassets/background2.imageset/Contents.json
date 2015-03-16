@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "background2.jpg"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Looking Down New York City Grayscale Android Wallpaper.jpg"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

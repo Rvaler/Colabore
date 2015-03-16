@@ -8,6 +8,7 @@
 
 #import "COLPopUpViewController.h"
 #import "COLCategViewController.h"
+#import <Parse/Parse.h>
 
 @interface COLPopUpViewController ()
 
@@ -262,6 +263,13 @@
                                               }
                                               completion:^(BOOL finished){
                                                   if(finished){
+                                                      
+                                                      // realiza a denuncia no BD
+                                                      PFObject *newDenuncia = [PFObject objectWithClassName:@"Denuncia"];
+                                                      newDenuncia[@"photo"] = 
+                                                      
+                                                      
+                                                      //
                                                       
                                                       
                                                       UIAlertController *cadastrado = [UIAlertController alertControllerWithTitle:@"Denúncia!" message:@"Denúncia enviada..." preferredStyle:UIAlertControllerStyleAlert];

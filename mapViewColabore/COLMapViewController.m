@@ -223,6 +223,7 @@
 - (IBAction)showPopUp:(UIButton *)sender {
 
     _popup = [[COLPopUpViewController alloc] init];
+    [_popup setCurrentLocation:_loc];
     [_popup showPopUpOnView:self.view animated:YES];
     
 }
@@ -240,6 +241,7 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
+
 
 -(IBAction)backFromMenuToMap:(UIStoryboardSegue*)segue
 {
