@@ -471,11 +471,10 @@
 				TargetAttributes = {
 					5801484C1AAA729300588299 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = YR3S2CY7HM;
 					};
 					580148651AAA729300588299 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = YR3S2CY7HM;
+						DevelopmentTeam = 67BQ8QZEWD;
 						TestTargetID = 5801484C1AAA729300588299;
 					};
 				};
