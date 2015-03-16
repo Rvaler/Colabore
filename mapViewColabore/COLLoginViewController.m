@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *logoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *forgetPasswordConstraint;
 
+@property (weak, nonatomic) IBOutlet UIButton *btLogin;
+
+-(void)loginErrorMessage:(NSString *)errorMessage;
 @end
 
 @implementation COLLoginViewController{
@@ -113,7 +116,12 @@ static CGFloat keyboardHeightOffset = 5.0f;
     [self performSegueWithIdentifier:@"segueLoginToRegister" sender:sender];
 }
 - (IBAction)loginButtonClicked:(UIButton *)sender {
-    [PFUser logInWithUsernameInBackground:_userTextField.text
+    if([_userTextField.text isEqualToString:@""] || [_passwordTextField.text isEqualToString:@""])
+    {
+        [self loginErrorMessage:@"Preencha os campos de login corretamente"];
+    }else
+    {
+        [PFUser logInWithUsernameInBackground:_userTextField.text
                                  password:_passwordTextField.text
                                     block:^(PFUser *user, NSError *error){
                                         if(user){
@@ -123,12 +131,29 @@ static CGFloat keyboardHeightOffset = 5.0f;
                                             [[COLManager manager] setUser:loggedUser];
                                             [self performSegueWithIdentifier:@"segueLoginToMap" sender:sender];
                                         }else{
-                                            NSLog(@"nao logou");
+                                            [self loginErrorMessage:@"E-mail / Usuário ou senha incorretos"];
                                         }
                                     }];
+    }
 }
 
 
+-(void)loginErrorMessage:(NSString *)errorMessage{
+    [_btLogin setEnabled:NO];
+    [UIView animateWithDuration:1.f animations:^{
+        
+        [_btLogin setBackgroundColor:[UIColor colorWithRed:225.f/255.f green:158.f/255.f blue:64.f/255.f alpha:1.f]];
+        [_btLogin setTitle:errorMessage forState:UIControlStateNormal];
+        
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:1.f delay:1.f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+            [_btLogin setBackgroundColor:[UIColor colorWithRed:45.f/255.f green:142.f/255.f blue:49.f/255.f alpha:1.f]];
+        } completion:^(BOOL finished){
+            [_btLogin setEnabled:YES];
+            [_btLogin setTitle:@"Entrar" forState:UIControlStateNormal];
+        }];
+    }];
+}
 -(IBAction)backFromRegisterToLogin:(UIStoryboardSegue *)segue
 {
     

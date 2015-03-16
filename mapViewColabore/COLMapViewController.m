@@ -12,8 +12,6 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *loc;
-
-//teste
 @end
 
 @implementation COLMapViewController{
@@ -233,6 +231,7 @@
     
 }
 # pragma mark - UIAlertViewDelegate
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

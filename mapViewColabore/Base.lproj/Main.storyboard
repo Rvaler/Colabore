@@ -281,6 +281,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="btLogin" destination="mZd-5h-gZ4" id="bnb-qJ-OS7"/>
                         <outlet property="forgetPasswordConstraint" destination="Kxv-HB-w8X" id="B4v-4l-fJI"/>
                         <outlet property="logoImageView" destination="a8X-3w-AoU" id="wRA-ow-cbD"/>
                         <outlet property="logoLabel" destination="bH9-Vr-PLN" id="szj-AH-p5P"/>
@@ -442,6 +443,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="btRegister" destination="f3Z-ll-aDG" id="qi2-Bx-pB8"/>
                         <outlet property="confirmarSenhaTextField" destination="8Mj-jR-6rI" id="kMz-hI-VJi"/>
                         <outlet property="constraintBottom" destination="6Ob-e5-ZAa" id="V7t-5n-ZrS"/>
                         <outlet property="emailTextField" destination="OMH-tG-g6C" id="oBC-Wc-1BD"/>

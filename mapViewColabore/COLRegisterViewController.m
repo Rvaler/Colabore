@@ -16,10 +16,13 @@
 @property (strong, nonatomic) IBOutlet UITextField *senhaTextField;
 @property (strong, nonatomic) IBOutlet UITextField *confirmarSenhaTextField;
 
+@property (weak, nonatomic) IBOutlet UIButton *btRegister;
+
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *constraintBottom;
 
 @property (nonatomic) COLUser *user;
 
+-(void)registerErrorMessage:(NSString *)errorMessage;
 @end
 
 @implementation COLRegisterViewController{
@@ -121,7 +124,20 @@ static CGFloat keyboardHeightOffset = 15.0f;
 
 // when press cadastrar button, creates an user in database and go to Map View
 - (IBAction)signUpButtonClicked:(UIButton *)sender {
-    if ([_senhaTextField.text isEqual:_confirmarSenhaTextField.text]) {
+    if([_nomeCompletoTextField.text isEqualToString:@""] ||
+       [_emailTextField.text isEqualToString:@""] ||
+       [_usuarioTextField.text isEqualToString:@""] ||
+       [_senhaTextField.text isEqualToString:@""] ||
+       [_confirmarSenhaTextField.text isEqualToString:@""])
+    {
+        [self registerErrorMessage:@"Preencha os campos corretamente"];
+    }
+    else if(![_senhaTextField.text isEqual:_confirmarSenhaTextField.text])
+    {
+        [self registerErrorMessage:@"As senhas não são compatíveis"];
+    }
+    else
+    {
         __block COLUser *loggedUser = nil;
         PFUser *PFUnewUser = [PFUser user];
         PFUnewUser[@"completeName"] = _nomeCompletoTextField.text;
@@ -131,22 +147,33 @@ static CGFloat keyboardHeightOffset = 15.0f;
         
         [PFUnewUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                
-                NSLog(@"registro efetuado com sucesso");
-                
                 loggedUser = [[COLUser alloc] initWithCompleteName:_nomeCompletoTextField.text email:_emailTextField.text username:_usuarioTextField.text objectID:PFUnewUser.objectId];
                 [[COLManager manager] setUser:loggedUser];
                 
                 [self performSegueWithIdentifier:@"segueRegisterToMap" sender:sender];
             }else{
-               
-                NSLog(@"erro no registro");
+                [self registerErrorMessage:@"Usuário já cadastrado."];
             }
         }];
     }
 }
     
-
+-(void)registerErrorMessage:(NSString *)errorMessage{
+    [_btRegister setEnabled:NO];
+    [UIView animateWithDuration:1.f animations:^{
+        
+        [_btRegister setBackgroundColor:[UIColor colorWithRed:225.f/255.f green:158.f/255.f blue:64.f/255.f alpha:1.f]];
+        [_btRegister setTitle:errorMessage forState:UIControlStateNormal];
+        
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:1.f delay:1.f options:UIViewAnimationOptionAllowAnimatedContent animations:^{
+            [_btRegister setBackgroundColor:[UIColor colorWithRed:241.f/255.f green:49.f/255.f blue:55.f/255.f alpha:1.f]];
+        } completion:^(BOOL finished){
+            [_btRegister setEnabled:YES];
+            [_btRegister setTitle:@"Cadastrar" forState:UIControlStateNormal];
+        }];
+    }];
+}
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     
