@@ -53,6 +53,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+    //Espaço pré  texto
+    _txtTitle.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    _txtCat.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
