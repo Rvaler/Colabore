@@ -254,10 +254,9 @@
 		5801484F1AAA729300588299 /* mapViewColabore */ = {
 			isa = PBXGroup;
 			children = (
-				C3DE890B1AADF98600DDE6C8 /* Screens */,
+				C3DE890B1AADF98600DDE6C8 /* Views */,
 				C3396B3C1AADC37C000EDF72 /* Objects */,
 				C3396B3B1AADC367000EDF72 /* ViewControllers */,
-				5801485A1AAA729300588299 /* Main.storyboard */,
 				5801485D1AAA729300588299 /* Images.xcassets */,
 				580148501AAA729300588299 /* Supporting Files */,
 			);
@@ -412,14 +411,15 @@
 			name = Objects;
 			sourceTree = "<group>";
 		};
-		C3DE890B1AADF98600DDE6C8 /* Screens */ = {
+		C3DE890B1AADF98600DDE6C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5801485A1AAA729300588299 /* Main.storyboard */,
 				5801485F1AAA729300588299 /* LaunchScreen.xib */,
 				C3396B3F1AADC5BC000EDF72 /* COLPopUpViewController.xib */,
 				C3DE89081AADEB0F00DDE6C8 /* COLCategViewController.xib */,
 			);
-			name = Screens;
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

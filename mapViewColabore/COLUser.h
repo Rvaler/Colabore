@@ -18,5 +18,6 @@
 
 - (id)initWithCompleteName:(NSString*)inCompleteName email:(NSString*)inEmail username:(NSString*)inUsername objectID:(NSString*)inObjectID;
 
-
+- (void)saveData;
+- (void)loadData;
 @end
