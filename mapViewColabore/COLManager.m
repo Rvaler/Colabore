@@ -23,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        _user = nil;
+        _user = [[COLUser alloc] init];
     }
     return self;
 }
